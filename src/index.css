@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
+
+li .active{
+    background-color: #3B25C1;
+    color: white;
+}
+
+.swiper-button-next,
+.swiper-button-prev, 
+.swiper-container-rtl .swiper-button-prev,
+.swiper-container-rtl .swiper-button-next{
+    color: #fff!important;
+}
