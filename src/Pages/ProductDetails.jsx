@@ -29,8 +29,8 @@ const ProductDetails = () => {
     <div className='py-10 container mx-auto'>
       {
         data.length > 0 ? <>
-          <h1 className='text-3xl text-center font-bold my-10'>My Products</h1>
-          <div className='grid md:grid-cols-4 gap-5'>
+          <h1 className='text-3xl text-center font-bold my-10'>Product By Category</h1>
+          <div className='grid md:grid-cols-3 gap-5'>
             {
               data.map(item => <Product product={item} key={item._id}></Product>)
             }

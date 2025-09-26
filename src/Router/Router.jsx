@@ -16,8 +16,8 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import AddProducts from "../Pages/AddProducts";
 import PrivateRoute from "../context/PrivateRoute";
 import Cart from "../Pages/Cart";
-import Product from "../components/Product";
 import ProductPage from "../Pages/Product";
+import Updata from "../Pages/Updata";
 
 export const router = createBrowserRouter([
   {
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
         },
         {
           path:"allProducts",
-          loader : ()=> fetch("http://localhost:3000"),
+          loader : ()=> fetch("http://localhost:3000/home"),
           HydrateFallback : LoadingSpinner,
           element: <PrivateRoute>
             <AllProducts></AllProducts>
@@ -97,6 +97,14 @@ export const router = createBrowserRouter([
           path:"product/:id",
           element: <PrivateRoute>
             <ProductPage></ProductPage>
+          </PrivateRoute>
+        },
+        {
+          path:"update/:id",
+          loader : ()=> fetch("http://localhost:3000/category"),
+          HydrateFallback : LoadingSpinner,
+          element: <PrivateRoute>
+            <Updata></Updata>
           </PrivateRoute>
         }
     ]

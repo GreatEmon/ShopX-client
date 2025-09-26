@@ -31,7 +31,7 @@ const MyProducts = () => {
           <h1 className='text-3xl text-center font-bold my-10'>My Products</h1>
           <div className='grid md:grid-cols-4 gap-5'>
             {
-              data.map(item => <Product product={item} key={item._id}></Product>)
+              data?.map(item => <Product product={item} key={item._id}></Product>)
             }
           </div>
 
@@ -39,7 +39,7 @@ const MyProducts = () => {
 
         </> : <div className='text-center'>
           <h1 className='my-5 text-3xl text-center'> No item found</h1>
-          <Link to='/add' className=" btn btn-primary my-5 px-4 py-4 text-white text-bold text-xl rounded-xl">Add Products</Link>
+          <Link to='/addProducts' className=" btn btn-primary my-5 px-4 py-4 text-white text-bold text-xl rounded-xl">Add Products</Link>
         </div>
       }
 
