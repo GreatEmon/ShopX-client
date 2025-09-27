@@ -15,7 +15,6 @@ const AllProducts = () => {
 
   useEffect(() => {
     if (!user) return;
-
     fetch("http://localhost:3000/home", {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
@@ -26,9 +25,6 @@ const AllProducts = () => {
       .finally(() => setLoading(false));
   }, [user]);
   
-
-
-
 
   async function handleClick(e) {
     setBtn(false)
