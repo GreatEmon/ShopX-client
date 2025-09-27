@@ -2,7 +2,9 @@ import React from 'react'
 import { Link } from 'react-router'
 
 const Table = ({ product }) => {
+
     return (
+
             <tr>
                 <td>
                     <div className="avatar">
@@ -21,6 +23,7 @@ const Table = ({ product }) => {
                 <td>{product.price}</td>
                 <td>{product.stock}</td>
                 <td>{product.minimumOrderQuantity}</td>
+
                 <th>
                     <Link to={`/product/${product._id}`} className="mt-auto inline-block text-center bg-primary text-white py-2 px-4 rounded-lg hover:bg-gray-800 mr-2">
                         Details
@@ -29,7 +32,9 @@ const Table = ({ product }) => {
                         Update
                     </Link>
                 </th>
+                
             </tr>
+
     )
 }
 
