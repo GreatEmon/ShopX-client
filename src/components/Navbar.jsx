@@ -30,6 +30,7 @@ const Navbar = () => {
                 </div>
                 <Link to="/" className="btn btn-ghost text-xl">ShopX</Link>
             </div>
+            
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     {menu}
@@ -45,6 +46,7 @@ const Navbar = () => {
                     </div>
 
                 </Link>
+
                 {!user ? <Link to="/login" className='btn btn-outline btn-primary'>Login</Link> : <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
                         <img
