@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Slider = ({image,title,desc}) => {
+    
     return (
         <div>
             <div
