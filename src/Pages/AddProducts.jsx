@@ -1,5 +1,5 @@
 import React, { use } from 'react'
-import { Link, useLoaderData } from 'react-router'
+import { useLoaderData } from 'react-router'
 import Swal from 'sweetalert2'
 import { AuthContext } from '../context/AuthProvider';
 
@@ -27,7 +27,6 @@ const AddProducts = () => {
     data["availabilityStatus"] = "In Stock"
     data["reviews"] = []
     data["images"] = [form.thumbnail.value]
-
 
 
     if (form.category.value === "Pick Product Category") {
