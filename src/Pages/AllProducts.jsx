@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useLoaderData } from 'react-router'
 import Product from '../components/Product'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Table from '../components/Table'
@@ -7,13 +6,29 @@ import { use } from 'react'
 import { AuthContext } from '../context/AuthProvider'
 
 const AllProducts = () => {
-  const dat = useLoaderData()
-  const [data, setData] = useState(dat)
-  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
   const [btn, setBtn] = useState(true)
   const [grid, setGrid] = useState(true)
 
   const {user} = use(AuthContext)
+
+  useEffect(() => {
+    if (!user) return;
+
+    fetch("http://localhost:3000/home", {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setData(data))
+      .finally(() => setLoading(false));
+  }, [user]);
+  
+
+
+
 
   async function handleClick(e) {
     setBtn(false)
@@ -37,7 +52,7 @@ const AllProducts = () => {
 
 
   const handleClickSort = () => {
-    const ndata = data.filter(item => item.minimumOrderQuantity > 10)
+    const ndata = data.filter(item => item.minimumOrderQuantity > 100)
     setData(ndata)
   }
 

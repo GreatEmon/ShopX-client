@@ -18,6 +18,7 @@ import PrivateRoute from "../context/PrivateRoute";
 import Cart from "../Pages/Cart";
 import ProductPage from "../Pages/Product";
 import Updata from "../Pages/Updata";
+import CategoryLoader from "../Loader/CategoryLoader";
 
 export const router = createBrowserRouter([
   {
@@ -42,21 +43,19 @@ export const router = createBrowserRouter([
         },
         {
           path:"categories",
-          loader : ()=> fetch("http://localhost:3000/category"),
+          loader : CategoryLoader,
           HydrateFallback : LoadingSpinner,
           Component: Categories
         },
         {
           path:"allProducts",
-          loader : ()=> fetch("http://localhost:3000/home"),
-          HydrateFallback : LoadingSpinner,
           element: <PrivateRoute>
             <AllProducts></AllProducts>
           </PrivateRoute>
         },
         {
           path:"addproducts",
-          loader : ()=> fetch("http://localhost:3000/category"),
+          loader : CategoryLoader,
           HydrateFallback : LoadingSpinner,
           element: <PrivateRoute>
             <AddProducts></AddProducts>
@@ -101,7 +100,7 @@ export const router = createBrowserRouter([
         },
         {
           path:"update/:id",
-          loader : ()=> fetch("http://localhost:3000/category"),
+          loader : CategoryLoader,
           HydrateFallback : LoadingSpinner,
           element: <PrivateRoute>
             <Updata></Updata>

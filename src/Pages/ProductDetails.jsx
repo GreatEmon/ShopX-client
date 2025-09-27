@@ -16,7 +16,12 @@ const ProductDetails = () => {
   const slug = useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:3000/category/${slug.slug}`).
+    fetch(`http://localhost:3000/category/${slug.slug}`, {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        }).
       then(res => res.json()).
       then(r => {
         setData(r)

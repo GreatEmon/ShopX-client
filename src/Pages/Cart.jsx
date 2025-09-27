@@ -11,12 +11,19 @@ const Cart = () => {
   document.title = "Cart"
   const [uid, setUid] = useState([])
   const [loading, setLoading] = useState(true)
+  const [remove, setRemove] = useState(false)
   const [cartProduct, setCartProduct] = useState([])
   const { user } = use(AuthContext)
 
   useEffect(() => {
     let data = []
-    fetch(`http://localhost:3000/cart/${user.email}`)
+    fetch(`http://localhost:3000/cart/${user.email}`,{
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    }
+      )
     .then(res => res.json())
     .then(async cartItems => {
       setUid(cartItems);
@@ -33,7 +40,7 @@ const Cart = () => {
       console.error(err);
       setLoading(false);
     });
-  }, [uid])
+  }, [remove])
 
 
   if (loading) return <LoadingSpinner></LoadingSpinner>
@@ -45,7 +52,7 @@ const Cart = () => {
           <h1 className='text-3xl text-center font-bold my-10'>My Cart</h1>
           <div className='grid md:grid-cols-4 gap-5'>
             {
-              cartProduct.map(item => <Product2 product={item} key={item._id} uid = {uid}></Product2>)
+              cartProduct.map(item => <Product2 product={item} key={item._id} uid = {uid} setRemove={setRemove}></Product2>)
             }
           </div>
 

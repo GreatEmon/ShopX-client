@@ -69,6 +69,7 @@ const Updata = () => {
         fetch(`http://localhost:3000/update/${id}`, {
             method: "PATCH",
             headers: {
+                authorization: `Bearer ${user.accessToken}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)

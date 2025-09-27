@@ -42,6 +42,7 @@ export default function ProductPage() {
     fetch(`http://localhost:3000/api/products/${product._id}/decrement`, {
       method: "PATCH",
       headers: {
+        authorization: `Bearer ${user.accessToken}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ amount: parseInt(data.orderQuantity) })
@@ -53,6 +54,7 @@ export default function ProductPage() {
           fetch(`http://localhost:3000/cart/add`, {
             method: "POST",
             headers: {
+              authorization: `Bearer ${user.accessToken}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -98,7 +100,12 @@ export default function ProductPage() {
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const res = await fetch(`http://localhost:3000/products/${id}`);
+        const res = await fetch(`http://localhost:3000/products/${id}`, {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        });
         if (!res.ok) throw new Error("Failed to fetch product");
         const data = await res.json();
         setProduct(data);

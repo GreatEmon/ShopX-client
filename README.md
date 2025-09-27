@@ -113,8 +113,6 @@ cd ShopX-client
 npm install
 npm run dev
 
-
-
 ### Server `.env`
 
 cd ShopX-backend

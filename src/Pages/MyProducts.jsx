@@ -15,13 +15,17 @@ const MyProducts = () => {
   const { user } = use(AuthContext)
 
   useEffect(() => {
-    fetch(`http://localhost:3000/myproducts/${user.email}`).
+    fetch(`http://localhost:3000/myproducts/${user.email}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+        'Content-Type': 'application/json'
+      }}).
       then(res => res.json()).
       then(r => {
         setData(r)
         setLoading(false)
       })
-  }, [user?.email, data])
+  }, [user?.email])
 
   if (loading) return <LoadingSpinner></LoadingSpinner>
   return (

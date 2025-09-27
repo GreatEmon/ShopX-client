@@ -44,6 +44,8 @@ const AddProducts = () => {
     const cleaned = tagspreference.split(',').map(element => element.trim())
     data['tags'] = cleaned
 
+    console.log(data)
+
     if(data.discountPercentage < 0 || data.minimumOrderQuantity < 0 || data.price < 0 || data.rating < 0 || data.stock <0){
       return Swal.fire({
         position: "top-end",
@@ -54,7 +56,7 @@ const AddProducts = () => {
       });
     }
 
-    if(data.stock < data.minimumOrderQuantity){
+    if(parseInt(data.stock) < parseInt(data.minimumOrderQuantity)){
       return Swal.fire({
         position: "top-end",
         icon: "error",
@@ -67,6 +69,7 @@ const AddProducts = () => {
     fetch("http://localhost:3000/add", {
       method: "POST",
       headers: {
+        authorization: `Bearer ${user.accessToken}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)

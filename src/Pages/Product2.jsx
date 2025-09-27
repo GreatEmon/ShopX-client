@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Swal from 'sweetalert2'
 
-const Product2 = ({ product, uid }) => {
+const Product2 = ({ product, uid ,setRemove}) => {
 
     let data = uid.find(item => item.id === product._id)
 
@@ -11,6 +11,7 @@ const Product2 = ({ product, uid }) => {
         fetch(`http://localhost:3000/delete/${data._id}`, {
               method: "DELETE",
               headers: {
+                authorization: `Bearer ${user.accessToken}`,
                 'Content-Type': 'application/json'
               },
             }).
@@ -25,6 +26,7 @@ const Product2 = ({ product, uid }) => {
                     showConfirmButton: false,
                     timer: 1500
                   });
+                  setRemove(true)
                 } else {
                   Swal.fire({
                     position: "top-end",
