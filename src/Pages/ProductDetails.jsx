@@ -16,7 +16,7 @@ const ProductDetails = () => {
   const slug = useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:3000/category/${slug.slug}`, {
+    fetch(`https://shop-x-backend-seven.vercel.app/category/${slug.slug}`, {
           headers: {
             authorization: `Bearer ${user.accessToken}`,
             'Content-Type': 'application/json'

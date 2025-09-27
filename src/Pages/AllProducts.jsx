@@ -15,7 +15,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     if (!user) return;
-    fetch("http://localhost:3000/home", {
+    fetch("https://shop-x-backend-seven.vercel.app/home", {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },
@@ -30,7 +30,7 @@ const AllProducts = () => {
     setBtn(false)
     try {
       setLoading(true)
-      const res = await fetch(`http://localhost:3000/`, {
+      const res = await fetch(`https://shop-x-backend-seven.vercel.app/`, {
             headers : {
               authorization : `Bearer ${user.accessToken}`,
             }

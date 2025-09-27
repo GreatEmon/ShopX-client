@@ -65,7 +65,7 @@ const AddProducts = () => {
       });
     }
 
-    fetch("http://localhost:3000/add", {
+    fetch("https://shop-x-backend-seven.vercel.app/add", {
       method: "POST",
       headers: {
         authorization: `Bearer ${user.accessToken}`,

@@ -1,7 +1,8 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { use, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import Swal from "sweetalert2";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function ProductPage() {
   const { id } = useParams();                  // get dynamic id from URL
@@ -10,6 +11,7 @@ export default function ProductPage() {
   const [error, setError] = useState(null);
   const { user } = use(AuthContext)
   const [oCount, setOCount] = useState(null)
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ export default function ProductPage() {
     data['userName'] = form.userName.value
     data['id'] = id;
 
-    fetch(`http://localhost:3000/api/products/${product._id}/decrement`, {
+    fetch(`https://shop-x-backend-seven.vercel.app/api/products/${product._id}/decrement`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${user.accessToken}`,
@@ -51,7 +53,7 @@ export default function ProductPage() {
       then(out => {
         console.log(out)
         if (out.modifiedCount) {
-          fetch(`http://localhost:3000/cart/add`, {
+          fetch(`https://shop-x-backend-seven.vercel.app/cart/add`, {
             method: "POST",
             headers: {
               authorization: `Bearer ${user.accessToken}`,
@@ -61,7 +63,6 @@ export default function ProductPage() {
           }).
             then(res => res.json()).
             then(out => {
-              console.log(out)
               if (out.insertedId) {
                 Swal.fire({
                   position: "top-end",
@@ -70,6 +71,8 @@ export default function ProductPage() {
                   showConfirmButton: false,
                   timer: 1500
                 });
+                navigate('/cart')
+
               } else {
                 Swal.fire({
                   position: "top-end",
@@ -93,14 +96,11 @@ export default function ProductPage() {
 
 
 
-
-
-
   }
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const res = await fetch(`http://localhost:3000/products/${id}`, {
+        const res = await fetch(`https://shop-x-backend-seven.vercel.app/products/${id}`, {
           headers: {
             authorization: `Bearer ${user.accessToken}`,
             'Content-Type': 'application/json'
@@ -116,13 +116,12 @@ export default function ProductPage() {
         setError(err.message);
       } finally {
         setLoading(false);
-        // const val = product.minimumOrderQuantity
       }
     }
     fetchProduct();
   }, [id]);
 
-  if (loading) return <div className="flex justify-center mt-20">Loading...</div>;
+  if (loading) return <LoadingSpinner></LoadingSpinner>
   if (error) return <div className="text-center text-red-500 mt-20">{error}</div>;
   if (!product) return null;
 
@@ -228,14 +227,14 @@ export default function ProductPage() {
                 name='orderQuantity' required value={oCount} onChange={e => setOCount(e.target.value)} />
 
               <div className="flex gap-3">
-                <button className="btn btn-primary btn-outline" onClick={() => {
-                  if (oCount < product.stock)
+                <span className="btn btn-primary btn-outline" onClick={() => {
+                  if (oCount < parseInt(product.stock))
                     setOCount(parseInt(oCount) + 1)
-                }}>+</button>
-                <button className="btn btn-primary btn-outline" onClick={() => {
+                }}>+</span>
+                <span className="btn btn-primary btn-outline" onClick={() => {
                   if (oCount > 0)
                     setOCount(parseInt(oCount) - 1)
-                }}>-</button>
+                }}>-</span>
               </div>
 
               <label className="label mt-5">Address</label>

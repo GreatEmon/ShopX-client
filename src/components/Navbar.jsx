@@ -50,7 +50,7 @@ const Navbar = () => {
                 {!user ? <Link to="/login" className='btn btn-outline btn-primary'>Login</Link> : <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
                         <img
-                            alt="Tailwind CSS Navbar component"
+                            alt="Mr"
                             src={user?.photoURL ? user.photoURL : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
                             title={user?.displayName}
                         />

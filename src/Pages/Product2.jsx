@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Swal from 'sweetalert2'
+import { AuthContext } from '../context/AuthProvider'
 
 const Product2 = ({ product, uid ,setRemove}) => {
 
+    const {user} = use(AuthContext)
     let data = uid.find(item => item.id === product._id)
 
     const handleDelete = () =>{
-        fetch(`http://localhost:3000/delete/${data._id}`, {
+        fetch(`https://shop-x-backend-seven.vercel.app/delete/${data._id}`, {
               method: "DELETE",
               headers: {
                 authorization: `Bearer ${user.accessToken}`,
@@ -17,7 +19,6 @@ const Product2 = ({ product, uid ,setRemove}) => {
             }).
               then(res => res.json()).
               then(out => {
-                console.log(out)
                 if (out.deletedCount) {
                   Swal.fire({
                     position: "top-end",

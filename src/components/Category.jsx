@@ -8,7 +8,7 @@ export default function CategoryCards() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/category")
+        axios.get("https://shop-x-backend-seven.vercel.app/category")
             .then(res => {
                 setCategories(res.data)
                 setLoading(false)

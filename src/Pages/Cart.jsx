@@ -17,42 +17,45 @@ const Cart = () => {
 
   useEffect(() => {
     let data = []
-    fetch(`http://localhost:3000/cart/${user.email}`,{
+    fetch(`https://shop-x-backend-seven.vercel.app/cart/${user.email}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
         'Content-Type': 'application/json'
-      }
-    }
-      )
-    .then(res => res.json())
-    .then(async cartItems => {
-      setUid(cartItems);
-      const products = await Promise.all(
-        cartItems.map(item =>
-          fetch(`http://localhost:3000/products/${item.id}`)
-          .then(res => res.json())
-        )
-      );
-      setCartProduct(products);
-      setLoading(false);
-    })
-    .catch(err => {
-      console.error(err);
-      setLoading(false);
-    });
+      }})
+      .then(res => res.json())
+      .then(async cartItems => {
+        setUid(cartItems);
+        const products = await Promise.all(
+          cartItems.map(item =>
+            fetch(`https://shop-x-backend-seven.vercel.app/products/${item.id}`, {
+              headers: {
+                authorization: `Bearer ${user.accessToken}`,
+                'Content-Type': 'application/json'
+              }
+            })
+              .then(res => res.json())
+          )
+        );
+        setCartProduct(products);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
   }, [remove])
 
 
   if (loading) return <LoadingSpinner></LoadingSpinner>
-  // console.log(cartProduct)
-  else return (
+  
+  return (
     <div className='py-10 container mx-auto'>
       {
         uid.length > 0 ? <>
           <h1 className='text-3xl text-center font-bold my-10'>My Cart</h1>
           <div className='grid md:grid-cols-4 gap-5'>
             {
-              cartProduct.map(item => <Product2 product={item} key={item._id} uid = {uid} setRemove={setRemove}></Product2>)
+              cartProduct?.map(item => <Product2 product={item} key={item._id} uid={uid} setRemove={setRemove}></Product2>)
             }
           </div>
 

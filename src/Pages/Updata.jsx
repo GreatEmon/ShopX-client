@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from 'react'
-import { useLoaderData, useParams } from 'react-router';
+import { useLoaderData, useNavigate, useParams } from 'react-router';
 import { AuthContext } from '../context/AuthProvider';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Swal from 'sweetalert2';
@@ -12,10 +12,15 @@ const Updata = () => {
     const { id } = useParams()
     const [listing, setListing] = useState({})
     const [load, setload] = useState(true)
+    const navigate = useNavigate()
 
 
     useEffect(() => {
-        fetch(`http://localhost:3000/products/${id}`).
+        fetch(`https://shop-x-backend-seven.vercel.app/products/${id}`, {
+            headers: {
+                authorization: `Bearer ${user.accessToken}`,
+            },
+        }).
             then(res => res.json()).
             then(r => {
                 setListing(r)
@@ -29,7 +34,6 @@ const Updata = () => {
         const formData = new FormData(form)
         const data = Object.fromEntries(formData.entries());
         data["images"] = [form.thumbnail.value]
-
 
 
         if (form.category.value === "Pick Product Category") {
@@ -66,7 +70,7 @@ const Updata = () => {
             });
         }
 
-        fetch(`http://localhost:3000/update/${id}`, {
+        fetch(`https://shop-x-backend-seven.vercel.app/update/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${user.accessToken}`,
@@ -85,6 +89,8 @@ const Updata = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+
+                navigate(`/product/${id}`)
                 } else {
                     Swal.fire({
                         position: "top-end",

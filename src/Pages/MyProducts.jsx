@@ -15,7 +15,7 @@ const MyProducts = () => {
   const { user } = use(AuthContext)
 
   useEffect(() => {
-    fetch(`http://localhost:3000/myproducts/${user.email}`, {
+    fetch(`https://shop-x-backend-seven.vercel.app/myproducts/${user.email}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
         'Content-Type': 'application/json'
