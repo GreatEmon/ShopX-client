@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 
 const Product = ({ product }) => {
-    // console.log(product)
+    
     return (
         <div>
             <div className="card bg-base-100 shadow-sm h-140">
@@ -25,12 +25,15 @@ const Product = ({ product }) => {
                              <div className="badge badge-outline">{e}</div>
                          ))}
                     </div>
+
                     <Link to={`/product/${product._id}`} className="mt-auto inline-block text-center bg-primary text-white py-2 px-4 rounded-lg hover:bg-gray-800">
                         Details
                     </Link>
+
                     <Link to={`/update/${product._id}`} className="mt-auto inline-block text-center bg-secondary text-white py-2 px-4 rounded-lg hover:bg-gray-800">
                         Update
                     </Link>
+                    
                 </div>
             </div>
         </div>
