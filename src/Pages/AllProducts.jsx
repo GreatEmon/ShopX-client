@@ -11,7 +11,7 @@ const AllProducts = () => {
   const [btn, setBtn] = useState(true)
   const [grid, setGrid] = useState(true)
 
-  const {user} = use(AuthContext)
+  const { user } = use(AuthContext)
 
   useEffect(() => {
     if (!user) return;
@@ -24,17 +24,17 @@ const AllProducts = () => {
       .then((data) => setData(data))
       .finally(() => setLoading(false));
   }, [user]);
-  
+
 
   async function handleClick(e) {
     setBtn(false)
     try {
       setLoading(true)
       const res = await fetch(`https://shop-x-backend-seven.vercel.app/`, {
-            headers : {
-              authorization : `Bearer ${user.accessToken}`,
-            }
-          });
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        }
+      });
       if (!res.ok) throw new Error("Failed to fetch product");
       const data = await res.json();
 
@@ -47,20 +47,27 @@ const AllProducts = () => {
   }
 
 
-  const handleClickSort = () => {
-    const ndata = data.filter(item => item.minimumOrderQuantity > 100)
-    setData(ndata)
-  }
+  const handleClickSortASC = () => {
+    const ndata = [...data].sort((a, b) => b.price - a.price);
+    setData(ndata);
+  };
+
+  const handleClickSortDESC = () => {
+    const ndata = [...data].sort((a, b) => a.price - b.price);
+    setData(ndata);
+  };
 
   if (loading) return <LoadingSpinner></LoadingSpinner>
   return (
     <div className='container mx-auto'>
-      <div className='flex justify-between my-6 items-center'>
-        <h1 className='text-center font-bold md:text-4xl'>All Products</h1>
+      <div className='flex justify-between my-6 items-center md:flex-row flex-col gap-5'>
+        <h1 className='text-center font-bold text-4xl'>All Products</h1>
         <div className='space-x-2'>
-          <button className='btn btn-outline btn-primary' onClick={handleClickSort}> Sort</button>
-          <button className='btn btn-outline btn-primary' onClick={() => setGrid(true)}> Grid View </button>
+          <button className='btn btn-outline btn-primary md:px-auto' onClick={handleClickSortASC}> Sort(Asc)</button>
+          <button className='btn btn-outline btn-primary' onClick={handleClickSortDESC}> Sort(Desc)</button>
+          {!grid ? <button className='btn btn-outline btn-primary' onClick={() => setGrid(true)}> Grid View </button> : 
           <button className='btn btn-outline btn-primary' onClick={() => setGrid(false)}> List View </button>
+          }
         </div>
       </div>
       {

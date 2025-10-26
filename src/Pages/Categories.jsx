@@ -6,7 +6,7 @@ const Categories = () => {
 
   return (
     <div className='container mx-auto my-15'>
-      <h1 className='text-center font-bold md:text-4xl'>Shop By Categories</h1>
+      <h1 className='text-center font-bold text-4xl'>Shop By Categories</h1>
 
       {categories.map(cat => (
         <div className='my-15 mx-2' key={cat._id}>

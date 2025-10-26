@@ -4,6 +4,9 @@ import Services from '../components/Services'
 import Download from '../components/Download'
 import CategoryCards from '../components/Category'
 import { motion } from "framer-motion";
+import FeaturedProducts from '../components/FeaturedProducts'
+import RecentProducts from '../components/RecentProducts'
+import Newsletter from '../components/Newsletter'
 
 
 const Home = () => {
@@ -18,8 +21,11 @@ const Home = () => {
         <Banner></Banner>
       </motion.div>
       <CategoryCards></CategoryCards>
+      <FeaturedProducts></FeaturedProducts>
       <Services></Services>
+      <RecentProducts></RecentProducts>
       <Download></Download>
+      <Newsletter></Newsletter>
     </div>
   )
 }
